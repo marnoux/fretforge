@@ -1,0 +1,329 @@
+/* ============================================================
+   Shredder's Academy theme — amp/road-case design system.
+   Tokens live in Tailwind's @theme; component classes are built
+   from utilities via @apply. Everything is scoped under .academy
+   so it never leaks onto the shadcn pages. Imported by app.css.
+   ============================================================ */
+
+@theme {
+  --color-tolex: #161210; /* warm near-black, amp tolex */
+  --color-panel: #211a14; /* card panel */
+  --color-well: #0f0b08; /* tab wells, recessed */
+  --color-line: #3b2f23; /* hairlines */
+  --color-bone: #ede3d0; /* faceplate cream */
+  --color-steel: #9a8f80; /* utility text */
+  --color-amber: #f5a03c; /* tube glow accent */
+  --color-ember: #b4470f; /* deep secondary */
+  --color-blood: #c8442e; /* reserved: tendon law only */
+
+  --font-stencil: "Saira Stencil One", sans-serif;
+  --font-condensed: "Barlow Condensed", sans-serif;
+  --font-barlow: "Barlow", system-ui, sans-serif;
+  --font-plex: "IBM Plex Mono", monospace;
+
+  --animate-glow: glow 2.6s ease-in-out infinite;
+  @keyframes glow {
+    0%,
+    100% {
+      box-shadow: 0 0 10px rgba(245, 160, 60, 0.25);
+    }
+    50% {
+      box-shadow: 0 0 22px rgba(245, 160, 60, 0.5);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------- root: full-bleed amp backdrop + base type ---------- */
+.academy {
+  @apply min-h-screen font-barlow font-normal text-[15.5px] leading-[1.58] text-bone antialiased;
+  background:
+    radial-gradient(1100px 520px at 50% -8%, #251c12 0%, var(--color-tolex) 62%) fixed,
+    var(--color-tolex);
+}
+.academy .wrap {
+  @apply mx-auto max-w-[900px] px-5 pb-[90px];
+}
+
+/* ---------- header: road-case stencil plate ---------- */
+.academy header {
+  @apply pt-[58px] pb-[30px] mb-3.5 border-b-[3px] border-double border-b-line;
+}
+.academy .eyebrow {
+  @apply font-condensed font-semibold text-[13px] leading-none tracking-[.34em] uppercase text-amber mb-3.5;
+}
+.academy h1 {
+  @apply font-stencil font-normal uppercase tracking-[.01em] text-bone;
+  font-size: clamp(40px, 8vw, 76px);
+  line-height: 0.96;
+}
+.academy h1 .lvl {
+  @apply block text-steel tracking-[.18em] mb-2;
+  font-size: 0.36em;
+}
+.academy .specline {
+  @apply flex flex-wrap gap-x-[22px] gap-y-2 mt-5 font-plex font-semibold text-[13px] leading-none text-steel tracking-[.06em];
+}
+.academy .specline b {
+  @apply text-amber font-semibold;
+}
+
+/* ---------- index strip ---------- */
+.academy nav {
+  @apply flex flex-wrap gap-1.5 pt-3.5 pb-1;
+}
+.academy nav a {
+  @apply font-condensed font-semibold text-[12px] leading-none tracking-[.16em] uppercase text-steel no-underline border border-line px-[11px] py-[7px];
+}
+.academy nav a:hover,
+.academy nav a:focus-visible {
+  @apply text-bone border-amber;
+}
+.academy :focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+}
+
+/* ---------- sections ---------- */
+.academy section {
+  @apply mt-[54px];
+}
+.academy .sec-eyebrow {
+  @apply font-condensed font-semibold text-[12px] leading-none tracking-[.3em] uppercase text-steel mb-2;
+}
+.academy h2 {
+  @apply font-stencil font-normal uppercase text-amber mb-3.5;
+  font-size: clamp(24px, 4.4vw, 34px);
+  line-height: 1.04;
+}
+.academy .lede {
+  @apply max-w-[64ch] text-bone;
+}
+.academy .note {
+  @apply text-steel text-sm max-w-[66ch];
+}
+
+/* ---------- drill cards ---------- */
+.academy .drill {
+  @apply bg-panel border border-line pt-[22px] px-[22px] pb-[24px] mt-6;
+}
+.academy .drill-head {
+  @apply flex items-baseline flex-wrap gap-3.5 mb-1.5;
+}
+.academy .code {
+  @apply font-stencil font-normal text-[26px] leading-none text-amber border border-ember pt-1.5 px-2.5 pb-1 tracking-[.04em];
+}
+.academy .drill h3 {
+  @apply font-condensed font-bold text-[21px] leading-[1.15] uppercase tracking-[.05em];
+}
+.academy .why {
+  @apply font-barlow font-medium text-sm leading-normal text-steel mt-1.5 mb-3.5 max-w-[68ch];
+}
+.academy .why b {
+  @apply text-bone font-semibold;
+}
+
+/* ---------- tab wells ---------- */
+.academy pre.tab {
+  @apply bg-well border border-line border-l-[3px] border-l-amber py-4 px-[18px] overflow-x-auto mt-2.5 mb-1 font-plex font-normal text-[13.5px] leading-normal text-bone;
+}
+.academy pre.tab .pk {
+  @apply text-amber font-semibold;
+} /* picking marker rows */
+.academy pre.tab .ch {
+  @apply text-steel font-semibold;
+} /* chord / label rows */
+.academy .cap {
+  @apply text-[13.5px] text-steel mt-2 max-w-[70ch];
+}
+.academy .cap b {
+  @apply text-bone;
+}
+
+/* ---------- signature: fret-rail tempo ladder ---------- */
+.academy .ladder {
+  @apply mt-4;
+}
+.academy .lad-label {
+  @apply block font-condensed font-semibold text-[11px] leading-none tracking-[.26em] uppercase text-steel mb-[7px];
+}
+.academy .rungs {
+  @apply flex border border-line bg-well;
+}
+.academy .rung {
+  @apply flex-1 text-center py-[11px] px-0.5 relative font-plex font-semibold text-[13px] leading-none text-steel border-l-2 border-l-line;
+}
+.academy .rung:first-child {
+  @apply border-l-4 border-l-steel;
+} /* the nut */
+.academy .rung.gate {
+  @apply bg-amber text-[#1a1208] shadow-[0_0_18px_rgba(245,160,60,0.35)] motion-safe:animate-glow;
+}
+.academy .rung.gate em {
+  @apply absolute -top-[9px] left-1/2 -translate-x-1/2 font-condensed font-semibold text-[9px] leading-none tracking-[.22em] not-italic bg-ember text-bone py-0.5 px-1.5 whitespace-nowrap;
+}
+
+/* ---------- tables ---------- */
+.academy table {
+  @apply w-full border-collapse mt-3.5 text-[14.5px];
+}
+.academy th {
+  @apply font-condensed font-semibold text-[12px] leading-none tracking-[.2em] uppercase text-steel text-left px-3 py-2.5 border-b-2 border-b-line;
+}
+.academy td {
+  @apply px-3 py-[11px] border-b border-b-line align-top;
+}
+.academy td.t {
+  @apply font-plex font-semibold text-[13.5px] text-amber whitespace-nowrap;
+}
+
+/* ---------- the standard checklist ---------- */
+.academy .standard {
+  counter-reset: std;
+  @apply mt-2;
+}
+.academy .std {
+  @apply flex items-start gap-4 bg-panel border border-line py-4 px-[18px] mt-2.5;
+}
+.academy .std::before {
+  counter-increment: std;
+  content: counter(std);
+  @apply font-stencil font-normal text-[22px] leading-none text-amber border border-ember min-w-[40px] text-center pt-2 pb-1.5;
+}
+.academy .std h4 {
+  @apply font-condensed font-bold text-[16.5px] leading-[1.2] uppercase tracking-[.06em];
+}
+.academy .std p {
+  @apply text-steel text-sm mt-[3px];
+}
+.academy .std p b {
+  @apply text-bone;
+}
+
+/* ---------- tendon law ---------- */
+.academy .tendon {
+  @apply bg-panel border border-line border-l-[5px] border-l-blood p-[22px] mt-[18px];
+}
+.academy .tendon h2 {
+  @apply text-blood;
+}
+.academy .tendon li {
+  @apply mt-[9px] ml-[18px] max-w-[68ch] text-steel;
+}
+.academy .tendon li b {
+  @apply text-bone;
+}
+.academy .tendon .sec-eyebrow {
+  @apply text-blood;
+}
+
+.academy footer {
+  @apply mt-[70px] pt-[22px] border-t-[3px] border-double border-t-line font-plex font-semibold text-[13px] leading-[1.7] text-steel tracking-[.05em];
+}
+.academy footer b {
+  @apply text-amber;
+}
+
+/* ---------- drill-sheet extras (Technical Arsenal) ---------- */
+.academy .xref {
+  @apply inline-block font-condensed font-semibold text-[11px] leading-none tracking-[.2em] uppercase text-amber border border-ember px-[9px] py-[5px] mr-1.5 mb-2.5;
+}
+.academy .daytag {
+  @apply font-stencil font-normal text-[18px] leading-none uppercase text-bone mt-[26px];
+}
+.academy .daytag span {
+  @apply text-amber;
+}
+.academy .std.new {
+  @apply border-l-[3px] border-l-amber;
+}
+
+/* ---------- theory-companion extras (Building Blocks) ---------- */
+.academy .formula {
+  @apply inline-block font-plex font-semibold text-[15px] leading-none text-bone bg-well border border-line px-[13px] py-[9px] mt-1 mb-2.5;
+}
+.academy .formula b {
+  @apply text-amber;
+}
+/* signature: the brightness dial */
+.academy .dial {
+  @apply flex items-center gap-[5px] mt-0.5 mb-3;
+}
+.academy .dial .dl {
+  @apply font-condensed font-semibold text-[10px] leading-none tracking-[.22em] uppercase text-steel mr-1.5;
+}
+.academy .dot {
+  @apply w-[15px] h-[15px] border border-black;
+}
+.academy .d1 {
+  background: #ffd9a0;
+}
+.academy .d2 {
+  background: #f5a03c;
+}
+.academy .d3 {
+  background: #d9822b;
+}
+.academy .d4 {
+  background: #a85d1c;
+}
+.academy .d5 {
+  background: #7a4014;
+}
+.academy .d6 {
+  background: #4c270c;
+}
+.academy .d7 {
+  background: #241204;
+}
+.academy .dot.on {
+  outline: 2px solid var(--color-bone);
+  outline-offset: 2px;
+}
+.academy details {
+  @apply bg-well border border-line py-[13px] px-4 mt-2.5;
+}
+.academy summary {
+  @apply cursor-pointer font-condensed font-semibold text-[13px] leading-none tracking-[.18em] uppercase text-amber;
+}
+.academy details p {
+  @apply text-steel text-[14.5px] mt-2.5;
+}
+.academy details p b {
+  @apply text-bone;
+}
+
+/* ---------- stacked paragraph spacing (was inline margins) ---------- */
+.academy .lede + .lede,
+.academy .lede + .note {
+  @apply mt-2.5;
+}
+.academy table + .why,
+.academy table + .note {
+  @apply mt-3.5;
+}
+
+/* ---------- responsive + print ---------- */
+@media (max-width: 560px) {
+  .academy pre.tab {
+    @apply text-xs py-[13px] px-3;
+  }
+  .academy .rung {
+    @apply text-[11.5px] py-[9px] px-px;
+  }
+  .academy .drill {
+    @apply pt-4 px-3.5 pb-[18px];
+  }
+}
+@media print {
+  .academy {
+    background: #fff;
+    color: #000;
+  }
+  .academy pre.tab {
+    @apply overflow-visible;
+  }
+}
