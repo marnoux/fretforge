@@ -123,3 +123,37 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ---- Global navbar ---- */
+.navbar {
+  @apply sticky top-0 z-50 w-full border-b border-[#3b2f23] bg-[#161210]/95 backdrop-blur-sm;
+}
+
+.navbar-inner {
+  @apply mx-auto flex max-w-[900px] items-center gap-6 px-5 py-3;
+}
+
+.navbar-brand {
+  @apply font-stencil text-[#f5a03c] text-sm uppercase tracking-widest shrink-0 mr-2;
+  font-family: "Saira Stencil One", sans-serif;
+}
+
+.navbar-links {
+  @apply flex flex-wrap items-center gap-x-6 gap-y-1;
+}
+
+.navbar-group {
+  @apply flex items-center gap-x-3;
+}
+
+.navbar-group-label {
+  @apply text-[10px] uppercase tracking-widest text-[#9a8f80] font-semibold select-none;
+}
+
+.navbar-link {
+  @apply text-[13px] text-[#ede3d0]/70 hover:text-[#ede3d0] transition-colors duration-150;
+}
+
+.navbar-link--active {
+  @apply text-[#f5a03c];
+}

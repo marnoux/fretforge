@@ -4,7 +4,7 @@ const modeTab = (raw: string) => ({ kind: "tab" as const, tab: parseTab(raw) });
 
 export const level2Theory: Sheet = {
   meta: {
-    track: "The Shredder's Academy · Metal Music Theory Track",
+    track: "Fretforge · Metal Music Theory Track",
     level: "Level 2 of 5 · War Room Companion",
     title: "The Building Blocks",
     specs: [

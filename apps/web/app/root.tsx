@@ -10,8 +10,16 @@ import {
 import type { Route } from "./+types/root";
 import "@fontsource-variable/geist";
 import "./app.css";
+import { Navbar } from "~/components/Navbar";
 
-export const links: Route.LinksFunction = () => [];
+const NAVBAR_FONTS =
+  "https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap";
+
+export const links: Route.LinksFunction = () => [
+  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+  { rel: "stylesheet", href: NAVBAR_FONTS },
+];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -32,7 +40,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

@@ -2,7 +2,7 @@ import { type Sheet, cell, parseTab } from "../types";
 
 export const level1: Sheet = {
   meta: {
-    track: "The Shredder's Academy · Practical Shred Track",
+    track: "Fretforge · Practical Shred Track",
     level: "Level 1 of 5 · Drill Sheet",
     title: "Foundations of Fury",
     specs: [

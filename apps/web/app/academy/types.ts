@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 /**
- * Content model for the Shredder's Academy sheets (drill sheets + theory
+ * Content model for Fretforge sheets (drill sheets + theory
  * companion). Pages are authored as structured data and rendered by the
  * components in ./components, so future features (metronome, tab player) can
  * consume the structured values directly instead of scraping an HTML blob.
@@ -15,7 +15,7 @@ export interface Sheet {
 }
 
 export interface SheetMeta {
-  /** Eyebrow line above the title, e.g. "The Shredder's Academy · …". */
+  /** Eyebrow line above the title, e.g. "Fretforge · …". */
   track: string;
   /** The .lvl line inside the <h1>, e.g. "Level 1 of 5 · Drill Sheet". */
   level: string;
