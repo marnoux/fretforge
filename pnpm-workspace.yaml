@@ -4,3 +4,13 @@ packages:
 
 allowBuilds:
   esbuild: true
+
+# Supply-chain policy: keep the minimumReleaseAge age check active for the
+# dependency tree, but exempt these high-reputation packages whose freshly
+# published versions were pinned in the recent dependency bump (57f75a6).
+minimumReleaseAgeExclude:
+  - turbo
+  - "@turbo/*"
+  - "@types/node"
+  - caniuse-lite
+  - postcss-selector-parser

@@ -31,6 +31,18 @@
       box-shadow: 0 0 22px rgba(245, 160, 60, 0.5);
     }
   }
+
+  /* Levels Map: the floating "YOU ARE HERE" tag bobs above the current node. */
+  --animate-float-tag: float-tag 2.6s ease-in-out infinite;
+  @keyframes float-tag {
+    0%,
+    100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      transform: translateX(-50%) translateY(-2px);
+    }
+  }
 }
 
 html {

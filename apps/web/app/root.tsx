@@ -12,8 +12,10 @@ import "@fontsource-variable/geist";
 import "./app.css";
 import { Navbar } from "~/components/Navbar";
 
+// The global navbar uses the full academy type system (stencil wordmark,
+// condensed links, mono streak), so load all four families app-wide.
 const NAVBAR_FONTS =
-  "https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap";
+  "https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
