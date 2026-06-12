@@ -107,6 +107,7 @@ export const level2Arsenal: Sheet = {
         },
         {
           kind: "card",
+          id: "e1",
           code: "A1",
           title: "3NPS Aeolian — Hammer Up, Pull Down",
           body: [
@@ -367,6 +368,7 @@ E|---------------------------|----------------------------|
         },
         {
           kind: "card",
+          id: "f1",
           code: "C1",
           title: "Three-String Etude — Am · F · G",
           body: [
@@ -490,6 +492,7 @@ E|----------------------------------------------|
         },
         {
           kind: "card",
+          id: "e3",
           code: "D1",
           title: "The Melodic Tap Line — Tap Carries the Tune",
           body: [
@@ -555,6 +558,7 @@ E|----------------------------------------------------------------------|
         },
         {
           kind: "card",
+          id: "d2",
           code: "E1",
           title: "Tremolo Melody — The Melodeath Engine",
           body: [

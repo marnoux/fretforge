@@ -102,6 +102,7 @@ export const level1: Sheet = {
         },
         {
           kind: "card",
+          id: "a1",
           code: "A1",
           title: "Fours on the High E — A Minor Climb",
           body: [
@@ -148,6 +149,7 @@ E|------------------------------------------------------|
         },
         {
           kind: "card",
+          id: "a2",
           code: "A2",
           title: "Pentatonic Box Circuit — Position 1",
           body: [
@@ -209,6 +211,7 @@ E|----------------------8-5---|
         },
         {
           kind: "card",
+          id: "a3",
           code: "A3",
           title: "Am7 Crossing Cells — Outside vs Inside",
           body: [
@@ -276,6 +279,7 @@ E|--------------------|
         },
         {
           kind: "card",
+          id: "b1",
           code: "B1",
           title: "3NPS Aeolian Climb — The Mother Shape",
           body: [
@@ -399,6 +403,7 @@ G|--5h7p5h7p5h7p5h7--7h9p7h9p7h9p7h9--|
         },
         {
           kind: "card",
+          id: "c4",
           code: "C1",
           title: "The Gallop Progression — Am · C · G · E5",
           body: [

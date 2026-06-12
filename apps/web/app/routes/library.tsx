@@ -1,34 +1,7 @@
 import { Link } from "react-router";
+import { SHEETS } from "~/academy/curriculum";
 import { academyLinks } from "~/academy/links";
 import type { Route } from "./+types/library";
-
-/** The sheets that exist today. New levels and companions slot in here. */
-const SHEETS = [
-	{
-		to: "/drills/foundations-of-fury",
-		code: "L1",
-		kind: "Drill Sheet",
-		title: "Foundations of Fury",
-		key: "A MINOR",
-		blurb: "Eight drills, four blocks, one home key. The chassis everything else bolts onto.",
-	},
-	{
-		to: "/drills/technical-arsenal",
-		code: "L2",
-		kind: "Drill Sheet",
-		title: "Technical Arsenal",
-		key: "A MINOR",
-		blurb: "Sequences, string skipping, and the sweep mechanics that turn the shape into speed.",
-	},
-	{
-		to: "/theory/building-blocks",
-		code: "T2",
-		kind: "Theory Companion",
-		title: "The Building Blocks",
-		key: "MODAL",
-		blurb: "Why the notes are the notes. The modal system behind the Level 2 drills.",
-	},
-];
 
 export const links: Route.LinksFunction = () => academyLinks();
 
@@ -63,8 +36,8 @@ export default function Library() {
 				<div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
 					{SHEETS.map((sheet) => (
 						<Link
-							key={sheet.to}
-							to={sheet.to}
+							key={sheet.slug}
+							to={sheet.route}
 							className="group flex flex-col gap-3 border border-line border-l-[3px] border-l-line bg-panel px-5 py-[18px] no-underline transition-colors duration-[120ms] hover:border-l-amber"
 						>
 							<div className="flex items-center gap-3.5">

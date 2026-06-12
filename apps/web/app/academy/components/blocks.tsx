@@ -80,16 +80,18 @@ function TendonLaw({
 }
 
 function Card({
+	id,
 	code,
 	title,
 	body,
 }: {
+	id?: string;
 	code: string;
 	title: string;
 	body: Block[];
 }) {
 	return (
-		<div className="drill">
+		<div className="drill" id={id}>
 			<div className="drill-head">
 				<span className="code">{code}</span>
 				<h3>{title}</h3>
@@ -144,6 +146,6 @@ export function BlockRenderer({ block }: { block: Block }) {
 				/>
 			);
 		case "card":
-			return <Card code={block.code} title={block.title} body={block.body} />;
+			return <Card id={block.id} code={block.code} title={block.title} body={block.body} />;
 	}
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { ENTRY_MAP, libraryLink } from "~/academy/curriculum";
 import { academyLinks } from "~/academy/links";
 import type { Route } from "./+types/map";
 
@@ -42,103 +43,122 @@ interface MapNodeData {
 	status: NodeStatus;
 }
 
-const NODES: MapNodeData[] = [
-	/* ══════════════════════════════════════════════════════════════════════════
-	   LEVEL 1 — FOUNDATIONS OF FURY  (rows 0–8)
-	   The non-negotiables. Hand mechanics, the home key (A minor), clean
-	   alternate picking, basic legato, palm-mute rhythm, and your first riffs.
-	   Nothing here is optional — every shred technique stands on this floor.
-	   ════════════════════════════════════════════════════════════════════════ */
-	{ id: "start", type: "start", col: 2, row: 0, code: null, title: "Begin", sub: "Entry Point", level: 1, status: "done" },
-	{ id: "a1", type: "drill", col: 2, row: 1, code: "A1", title: "Fours on High E", sub: "Am Climb · Alt Picking", level: 1, status: "done" },
-	{ id: "a2", type: "drill", col: 1, row: 2, code: "A2", title: "Pentatonic Box", sub: "Position 1 · 12 Crossings", level: 1, status: "done" },
-	{ id: "th1", type: "theory", col: 3, row: 2, code: "TH", title: "A Minor Basics", sub: "Key Center · Intervals", level: 1, status: "done" },
-	{ id: "b1", type: "drill", col: 2, row: 3, code: "B1", title: "3NPS Aeolian Climb", sub: "The Mother Shape", level: 1, status: "current" },
-	{ id: "a3", type: "drill", col: 1, row: 4, code: "A3", title: "String Crossing", sub: "Inside & Outside Picking", level: 1, status: "future" },
-	{ id: "b2", type: "drill", col: 3, row: 4, code: "B2", title: "Pentatonic Licks", sub: "6-Note Phrases", level: 1, status: "future" },
-	{ id: "b3", type: "drill", col: 1, row: 5, code: "B3", title: "Legato Basics", sub: "Hammer-ons & Pull-offs", level: 1, status: "future" },
-	{ id: "th2", type: "theory", col: 2, row: 5, code: "TH", title: "Fretboard Map", sub: "Note Names · Octaves", level: 1, status: "future" },
-	{ id: "b4", type: "drill", col: 3, row: 5, code: "B4", title: "Finger Independence", sub: "The Spider Cage", level: 1, status: "future" },
-	{ id: "c1", type: "drill", col: 1, row: 6, code: "C1", title: "Palm Muting", sub: "Chug Control · Right Hand", level: 1, status: "future" },
-	{ id: "c2", type: "drill", col: 2, row: 6, code: "C2", title: "Downpicking", sub: "The Hetfield Engine", level: 1, status: "future" },
-	{ id: "c3", type: "drill", col: 3, row: 6, code: "C3", title: "Power Chords", sub: "Root-5th · The Wall", level: 1, status: "future" },
-	{ id: "c4", type: "drill", col: 1, row: 7, code: "C4", title: "Gallop Riffing", sub: "Eighth–Sixteenth Lock", level: 1, status: "future" },
-	{ id: "rest1", type: "rest", col: 3, row: 7, code: "R", title: "Rest & Review", sub: "Tendon Protocol", level: 1, status: "future" },
-	{ id: "gate1", type: "gate", col: 2, row: 8, code: "GATE", title: "Foundations Gate", sub: "Clear All · L1", level: 1, status: "future" },
+/* Geometry + progress state for every node, keyed by canonical id. Drill/theory
+   labels come from the curriculum (see ~/academy/curriculum); the layout and
+   status live here. Status is hardcoded for now (future: a real progress store). */
+interface NodeLayout {
+	type: NodeType;
+	col: number;
+	row: number;
+	status: NodeStatus;
+}
 
-	/* ══════════════════════════════════════════════════════════════════════════
-	   LEVEL 2 — TECHNICAL ARSENAL  (rows 9–15)
-	   The core shred toolkit. Strict alternate picking, tremolo, economy, full
-	   legato + tapping, sweep arpeggios, harmonics, and expression (bends/
-	   vibrato/slides). Each is a weapon you'll combine forever after.
-	   ════════════════════════════════════════════════════════════════════════ */
-	{ id: "d1", type: "drill", col: 1, row: 9, code: "D1", title: "Alternate Picking", sub: "Strict Down-Up Mastery", level: 2, status: "locked" },
-	{ id: "th3", type: "theory", col: 2, row: 9, code: "TH", title: "Picking Mechanics", sub: "Pick Angle · Wrist Motion", level: 2, status: "locked" },
-	{ id: "d2", type: "drill", col: 3, row: 9, code: "D2", title: "Tremolo Picking", sub: "Single-String Speed", level: 2, status: "locked" },
-	{ id: "d3", type: "drill", col: 2, row: 10, code: "D3", title: "Economy Picking", sub: "One-Way Sweep Crossings", level: 2, status: "locked" },
-	{ id: "e1", type: "drill", col: 1, row: 11, code: "E1", title: "Legato Runs", sub: "Pull-off Chains", level: 2, status: "locked" },
-	{ id: "e2", type: "drill", col: 2, row: 11, code: "E2", title: "Hammer-from-Nowhere", sub: "Fret-Hand Attack", level: 2, status: "locked" },
-	{ id: "e3", type: "drill", col: 3, row: 11, code: "E3", title: "Two-Hand Tapping", sub: "The Eruption Cell", level: 2, status: "locked" },
-	{ id: "el1", type: "elite", col: 2, row: 12, code: "EL", title: "String Skipping", sub: "Elite Challenge", level: 2, status: "locked" },
-	{ id: "f1", type: "drill", col: 1, row: 13, code: "F1", title: "Sweep Picking", sub: "3-String Arpeggios", level: 2, status: "locked" },
-	{ id: "f2", type: "drill", col: 2, row: 13, code: "F2", title: "Pinch Harmonics", sub: "The Squeal", level: 2, status: "locked" },
-	{ id: "f3", type: "drill", col: 3, row: 13, code: "F3", title: "Bends & Vibrato", sub: "Pitch Precision", level: 2, status: "locked" },
-	{ id: "th4", type: "theory", col: 1, row: 14, code: "TH", title: "Arpeggios & Triads", sub: "Shapes Across the Neck", level: 2, status: "locked" },
-	{ id: "f4", type: "drill", col: 3, row: 14, code: "F4", title: "Slides & Phrasing", sub: "Legato Connectors", level: 2, status: "locked" },
-	{ id: "gate2", type: "gate", col: 2, row: 15, code: "GATE", title: "Arsenal Gate", sub: "Full Run · L2", level: 2, status: "locked" },
+const LAYOUT: Record<string, NodeLayout> = {
+	// ── Level 1 — Foundations of Fury (rows 0–8) ──
+	start: { type: "start", col: 2, row: 0, status: "done" },
+	a1: { type: "drill", col: 2, row: 1, status: "done" },
+	a2: { type: "drill", col: 1, row: 2, status: "done" },
+	th1: { type: "theory", col: 3, row: 2, status: "done" },
+	b1: { type: "drill", col: 2, row: 3, status: "current" },
+	a3: { type: "drill", col: 1, row: 4, status: "future" },
+	b2: { type: "drill", col: 3, row: 4, status: "future" },
+	b3: { type: "drill", col: 1, row: 5, status: "future" },
+	th2: { type: "theory", col: 2, row: 5, status: "future" },
+	b4: { type: "drill", col: 3, row: 5, status: "future" },
+	c1: { type: "drill", col: 1, row: 6, status: "future" },
+	c2: { type: "drill", col: 2, row: 6, status: "future" },
+	c3: { type: "drill", col: 3, row: 6, status: "future" },
+	c4: { type: "drill", col: 1, row: 7, status: "future" },
+	rest1: { type: "rest", col: 3, row: 7, status: "future" },
+	gate1: { type: "gate", col: 2, row: 8, status: "future" },
 
-	/* ══════════════════════════════════════════════════════════════════════════
-	   LEVEL 3 — MODAL WARFARE  (rows 16–21)
-	   The vocabulary of metal lead. All seven modes 3NPS, the dark/exotic
-	   scales (harmonic minor, Phrygian dominant, diminished) and how to aim
-	   lines at chord tones instead of just running shapes.
-	   ════════════════════════════════════════════════════════════════════════ */
-	{ id: "g1", type: "drill", col: 1, row: 16, code: "G1", title: "Dorian Runs", sub: "Modal Fingerings", level: 3, status: "locked" },
-	{ id: "th5", type: "theory", col: 2, row: 16, code: "TH", title: "The Modal System", sub: "7 Modes of Major", level: 3, status: "locked" },
-	{ id: "g2", type: "drill", col: 3, row: 16, code: "G2", title: "Phrygian Dominant", sub: "The Metal Mode", level: 3, status: "locked" },
-	{ id: "g3", type: "drill", col: 1, row: 17, code: "G3", title: "Lydian & Mixolydian", sub: "Bright & Dominant", level: 3, status: "locked" },
-	{ id: "g4", type: "drill", col: 3, row: 17, code: "G4", title: "Locrian & Diminished", sub: "The Dark Edge", level: 3, status: "locked" },
-	{ id: "th6", type: "theory", col: 2, row: 18, code: "TH", title: "Harmonic Minor", sub: "Neoclassical Roots", level: 3, status: "locked" },
-	{ id: "h1", type: "drill", col: 1, row: 19, code: "H1", title: "Neoclassical Arps", sub: "Malmsteen Sweeps", level: 3, status: "locked" },
-	{ id: "h2", type: "drill", col: 2, row: 19, code: "H2", title: "Diminished Runs", sub: "Symmetric Shapes", level: 3, status: "locked" },
-	{ id: "h3", type: "drill", col: 3, row: 19, code: "H3", title: "Chord-Tone Targeting", sub: "Intervallic Lines", level: 3, status: "locked" },
-	{ id: "el2", type: "elite", col: 2, row: 20, code: "EL", title: "Modal Sequencing", sub: "Elite Challenge", level: 3, status: "locked" },
-	{ id: "gate3", type: "gate", col: 2, row: 21, code: "GATE", title: "Modal Warfare Gate", sub: "Modal Mastery · L3", level: 3, status: "locked" },
+	// ── Level 2 — Technical Arsenal (rows 9–15) ──
+	d1: { type: "drill", col: 1, row: 9, status: "locked" },
+	th3: { type: "theory", col: 2, row: 9, status: "locked" },
+	d2: { type: "drill", col: 3, row: 9, status: "locked" },
+	d3: { type: "drill", col: 2, row: 10, status: "locked" },
+	e1: { type: "drill", col: 1, row: 11, status: "locked" },
+	e2: { type: "drill", col: 2, row: 11, status: "locked" },
+	e3: { type: "drill", col: 3, row: 11, status: "locked" },
+	el1: { type: "elite", col: 2, row: 12, status: "locked" },
+	f1: { type: "drill", col: 1, row: 13, status: "locked" },
+	f2: { type: "drill", col: 2, row: 13, status: "locked" },
+	f3: { type: "drill", col: 3, row: 13, status: "locked" },
+	th4: { type: "theory", col: 1, row: 14, status: "locked" },
+	f4: { type: "drill", col: 3, row: 14, status: "locked" },
+	gate2: { type: "gate", col: 2, row: 15, status: "locked" },
 
-	/* ══════════════════════════════════════════════════════════════════════════
-	   LEVEL 4 — SPEED & PRECISION  (rows 22–27)
-	   Where it gets fast. Burst training, the metronome ladder to 200 BPM,
-	   picking endurance, multi-string sweeps, tapped & 8-finger arpeggios, and
-	   rhythmic complexity (odd time, polyrhythm, blasts).
-	   ════════════════════════════════════════════════════════════════════════ */
-	{ id: "j1", type: "drill", col: 1, row: 22, code: "J1", title: "Speed Bursts", sub: "Triplet Explosions", level: 4, status: "locked" },
-	{ id: "th7", type: "theory", col: 2, row: 22, code: "TH", title: "Odd Time & Polyrhythm", sub: "7/8 · 5/4 · Groupings", level: 4, status: "locked" },
-	{ id: "j2", type: "drill", col: 3, row: 22, code: "J2", title: "Metronome Ladder", sub: "Climb to 200 BPM", level: 4, status: "locked" },
-	{ id: "j3", type: "drill", col: 2, row: 23, code: "J3", title: "Picking Endurance", sub: "Sustained Tremolo", level: 4, status: "locked" },
-	{ id: "k1", type: "drill", col: 1, row: 24, code: "K1", title: "5 & 6-String Sweeps", sub: "Full Arpeggio Runs", level: 4, status: "locked" },
-	{ id: "k2", type: "drill", col: 2, row: 24, code: "K2", title: "Tapped Arpeggios", sub: "Right-Hand Extensions", level: 4, status: "locked" },
-	{ id: "k3", type: "drill", col: 3, row: 24, code: "K3", title: "8-Finger Tapping", sub: "Two-Hand Legato", level: 4, status: "locked" },
-	{ id: "k4", type: "drill", col: 2, row: 25, code: "K4", title: "String-Skip Arps", sub: "Wide-Interval Tapping", level: 4, status: "locked" },
-	{ id: "el3", type: "elite", col: 2, row: 26, code: "EL", title: "Blast & Gallop Endurance", sub: "Elite Challenge", level: 4, status: "locked" },
-	{ id: "gate4", type: "gate", col: 2, row: 27, code: "GATE", title: "Speed Gate", sub: "200 BPM · L4", level: 4, status: "locked" },
+	// ── Level 3 — Modal Warfare (rows 16–21) ──
+	g1: { type: "drill", col: 1, row: 16, status: "locked" },
+	th5: { type: "theory", col: 2, row: 16, status: "locked" },
+	g2: { type: "drill", col: 3, row: 16, status: "locked" },
+	g3: { type: "drill", col: 1, row: 17, status: "locked" },
+	g4: { type: "drill", col: 3, row: 17, status: "locked" },
+	th6: { type: "theory", col: 2, row: 18, status: "locked" },
+	h1: { type: "drill", col: 1, row: 19, status: "locked" },
+	h2: { type: "drill", col: 2, row: 19, status: "locked" },
+	h3: { type: "drill", col: 3, row: 19, status: "locked" },
+	el2: { type: "elite", col: 2, row: 20, status: "locked" },
+	gate3: { type: "gate", col: 2, row: 21, status: "locked" },
 
-	/* ══════════════════════════════════════════════════════════════════════════
-	   LEVEL 5 — THE FINAL FORM  (rows 28–33)
-	   Mastery & musicianship. Combine every technique, add hybrid picking and
-	   whammy-bar control, advanced harmonics, world-class vibrato, and the
-	   real goal: phrasing, improvisation, and writing your own shred.
-	   ════════════════════════════════════════════════════════════════════════ */
-	{ id: "m1", type: "drill", col: 1, row: 28, code: "M1", title: "Technique Integration", sub: "Combining the Arsenal", level: 5, status: "locked" },
-	{ id: "th8", type: "theory", col: 2, row: 28, code: "TH", title: "Composition", sub: "Song Architecture", level: 5, status: "locked" },
-	{ id: "m2", type: "drill", col: 3, row: 28, code: "M2", title: "Hybrid Picking", sub: "Pick & Fingers", level: 5, status: "locked" },
-	{ id: "m3", type: "drill", col: 2, row: 29, code: "M3", title: "Whammy Bar", sub: "Dives & Flutter", level: 5, status: "locked" },
-	{ id: "n1", type: "drill", col: 1, row: 30, code: "N1", title: "Advanced Harmonics", sub: "Tapped & Artificial", level: 5, status: "locked" },
-	{ id: "n2", type: "drill", col: 2, row: 30, code: "N2", title: "Vibrato Mastery", sub: "The Singing Voice", level: 5, status: "locked" },
-	{ id: "n3", type: "drill", col: 3, row: 30, code: "N3", title: "Melodic Phrasing", sub: "Soloing With Intent", level: 5, status: "locked" },
-	{ id: "n4", type: "drill", col: 2, row: 31, code: "N4", title: "Improvisation", sub: "Over Changes & Keys", level: 5, status: "locked" },
-	{ id: "el4", type: "elite", col: 2, row: 32, code: "EL", title: "Transcription Challenge", sub: "Elite Challenge", level: 5, status: "locked" },
-	{ id: "gate5", type: "gate", col: 2, row: 33, code: "GATE", title: "The Final Gate", sub: "Master Cert · L5", level: 5, status: "locked" },
-];
+	// ── Level 4 — Speed & Precision (rows 22–27) ──
+	j1: { type: "drill", col: 1, row: 22, status: "locked" },
+	th7: { type: "theory", col: 2, row: 22, status: "locked" },
+	j2: { type: "drill", col: 3, row: 22, status: "locked" },
+	j3: { type: "drill", col: 2, row: 23, status: "locked" },
+	k1: { type: "drill", col: 1, row: 24, status: "locked" },
+	k2: { type: "drill", col: 2, row: 24, status: "locked" },
+	k3: { type: "drill", col: 3, row: 24, status: "locked" },
+	k4: { type: "drill", col: 2, row: 25, status: "locked" },
+	el3: { type: "elite", col: 2, row: 26, status: "locked" },
+	gate4: { type: "gate", col: 2, row: 27, status: "locked" },
+
+	// ── Level 5 — The Final Form (rows 28–33) ──
+	m1: { type: "drill", col: 1, row: 28, status: "locked" },
+	th8: { type: "theory", col: 2, row: 28, status: "locked" },
+	m2: { type: "drill", col: 3, row: 28, status: "locked" },
+	m3: { type: "drill", col: 2, row: 29, status: "locked" },
+	n1: { type: "drill", col: 1, row: 30, status: "locked" },
+	n2: { type: "drill", col: 2, row: 30, status: "locked" },
+	n3: { type: "drill", col: 3, row: 30, status: "locked" },
+	n4: { type: "drill", col: 2, row: 31, status: "locked" },
+	el4: { type: "elite", col: 2, row: 32, status: "locked" },
+	gate5: { type: "gate", col: 2, row: 33, status: "locked" },
+};
+
+/* Structural nodes (start / rest / gate / elite) are not curriculum content,
+   so their labels live here rather than in the curriculum. */
+const STRUCTURAL: Record<string, { code: string | null; title: string; sub: string; level: number }> = {
+	start: { code: null, title: "Begin", sub: "Entry Point", level: 1 },
+	rest1: { code: "R", title: "Rest & Review", sub: "Tendon Protocol", level: 1 },
+	gate1: { code: "GATE", title: "Foundations Gate", sub: "Clear All · L1", level: 1 },
+	el1: { code: "EL", title: "String Skipping", sub: "Elite Challenge", level: 2 },
+	gate2: { code: "GATE", title: "Arsenal Gate", sub: "Full Run · L2", level: 2 },
+	el2: { code: "EL", title: "Modal Sequencing", sub: "Elite Challenge", level: 3 },
+	gate3: { code: "GATE", title: "Modal Warfare Gate", sub: "Modal Mastery · L3", level: 3 },
+	el3: { code: "EL", title: "Blast & Gallop Endurance", sub: "Elite Challenge", level: 4 },
+	gate4: { code: "GATE", title: "Speed Gate", sub: "200 BPM · L4", level: 4 },
+	el4: { code: "EL", title: "Transcription Challenge", sub: "Elite Challenge", level: 5 },
+	gate5: { code: "GATE", title: "The Final Gate", sub: "Master Cert · L5", level: 5 },
+};
+
+/* Merge layout (geometry + status) with content (curriculum entry, or the
+   structural meta above for non-content nodes). */
+const NODES: MapNodeData[] = Object.entries(LAYOUT).map(([id, lay]) => {
+	const meta = ENTRY_MAP[id] ?? STRUCTURAL[id];
+	if (!meta) throw new Error(`Map node "${id}" has no curriculum entry or structural meta`);
+	return {
+		id,
+		type: lay.type,
+		col: lay.col,
+		row: lay.row,
+		status: lay.status,
+		code: meta.code,
+		title: meta.title,
+		sub: meta.sub,
+		level: meta.level,
+	};
+});
 
 const EDGES: [string, string][] = [
 	// ── Level 1 ──
@@ -510,6 +530,10 @@ function DetailCard({ node }: { node: MapNodeData }) {
 		{ v: node.type.toUpperCase(), c: "var(--color-steel)" },
 	];
 
+	const entry = ENTRY_MAP[node.id];
+	const link = libraryLink(entry);
+	const isContent = node.type === "drill" || node.type === "theory";
+
 	return (
 		<div
 			style={{
@@ -556,6 +580,41 @@ function DetailCard({ node }: { node: MapNodeData }) {
 					</span>
 				))}
 			</div>
+			{link ? (
+				<a
+					href={link}
+					style={{
+						pointerEvents: "auto",
+						display: "inline-block",
+						marginTop: "10px",
+						fontFamily: "var(--font-condensed)",
+						fontWeight: 700,
+						fontSize: "10px",
+						letterSpacing: "0.16em",
+						textTransform: "uppercase",
+						color: "var(--color-amber)",
+						textDecoration: "none",
+					}}
+				>
+					Open in Library →
+				</a>
+			) : isContent ? (
+				<span
+					style={{
+						display: "inline-block",
+						marginTop: "10px",
+						fontFamily: "var(--font-condensed)",
+						fontWeight: 700,
+						fontSize: "10px",
+						letterSpacing: "0.16em",
+						textTransform: "uppercase",
+						color: "var(--color-steel)",
+						opacity: 0.7,
+					}}
+				>
+					Coming soon
+				</span>
+			) : null}
 		</div>
 	);
 }

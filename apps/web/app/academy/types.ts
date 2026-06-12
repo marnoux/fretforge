@@ -94,7 +94,7 @@ export type Block =
   | { kind: "details"; summary: ReactNode; body: ReactNode }
   | { kind: "standard"; checks: StandardCheck[] }
   | { kind: "tendon"; eyebrow: string; title: string; items: ReactNode[] }
-  | { kind: "card"; code: string; title: string; body: Block[] };
+  | { kind: "card"; id?: string; code: string; title: string; body: Block[] };
 
 function unescapeHtml(s: string): string {
   return s

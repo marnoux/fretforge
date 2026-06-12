@@ -79,6 +79,7 @@ export const level2Theory: Sheet = {
         },
         {
           kind: "card",
+          id: "th5",
           code: "T1",
           title: "Formulas, Steps, and Two Ways to See a Mode",
           body: [
@@ -457,6 +458,7 @@ E|--5-6-8-------------------------------|
         },
         {
           kind: "card",
+          id: "th6",
           code: "HM",
           title: "A Harmonic Minor — The Blade",
           body: [

@@ -103,6 +103,11 @@ html {
 .academy section {
   @apply mt-[54px];
 }
+/* Anchor targets (deep links from the Map) clear the 54px sticky navbar. */
+.academy section[id],
+.academy .drill[id] {
+  scroll-margin-top: 70px;
+}
 .academy .sec-eyebrow {
   @apply font-condensed font-semibold text-[12px] leading-none tracking-[.3em] uppercase text-steel mb-2;
 }
