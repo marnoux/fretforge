@@ -170,6 +170,7 @@ E|--------------------------------8p7p5-|
         },
         {
           kind: "card",
+          id: "e4",
           code: "A2",
           title: "Cascading Sixes — The Waterfall",
           body: [
@@ -223,6 +224,7 @@ E|--------------------------------------|
         },
         {
           kind: "card",
+          id: "e5",
           code: "A3",
           title: "New Colors — A Dorian & A Harmonic Minor",
           body: [
@@ -302,6 +304,7 @@ E|--5-7-8-------------------------------|
         },
         {
           kind: "card",
+          id: "f5",
           code: "B1",
           title: "Triad Skip Cells — Am into Dm",
           body: [
@@ -423,6 +426,7 @@ E|-------------------------------------------------------------------|
         },
         {
           kind: "card",
+          id: "f6",
           code: "C2",
           title: "The V Door — E Major into A Minor",
           body: [
@@ -612,6 +616,7 @@ E|------------------------------------|
         },
         {
           kind: "card",
+          id: "d4",
           code: "E2",
           title: "Six-Shot Bursts — Fire and Release",
           body: [

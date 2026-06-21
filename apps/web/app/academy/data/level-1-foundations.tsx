@@ -341,6 +341,7 @@ E|--------------------------------8-7-5---|
         },
         {
           kind: "card",
+          id: "b3",
           code: "B2",
           title: "Diatonic Trill Ladder — Independence That Sings",
           body: [
@@ -479,6 +480,7 @@ E|--3---3-3-3---3-3-3---3-3-3---3-3-0---0-0-0---0-0-0---0-0-0---0-0-|
         },
         {
           kind: "card",
+          id: "c5",
           code: "D1",
           title: "The Pedal-Point Engine — Petrucci DNA",
           body: [
@@ -531,6 +533,7 @@ E|------------------------------------|
         },
         {
           kind: "card",
+          id: "c6",
           code: "D2",
           title: "The Singing Cell — Nilsson DNA",
           body: [

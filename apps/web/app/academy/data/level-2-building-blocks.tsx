@@ -565,6 +565,7 @@ E|--5-7-8-------------------------------|
         },
         {
           kind: "card",
+          id: "th4",
           code: "T4",
           title: "Triads, Sevenths, and the Genderless Power Chord",
           body: [

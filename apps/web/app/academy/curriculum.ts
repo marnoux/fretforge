@@ -71,7 +71,7 @@ export const SHEETS: SheetMetaRow[] = [
     kind: "Theory Companion",
     title: "The Building Blocks",
     key: "MODAL",
-    blurb: "Why the notes are the notes. The modal system behind the Level 2 drills.",
+    blurb: "Why the notes are the notes — triads and sevenths through the modal system and harmonic minor. The theory spine bridging Levels 2 and 3.",
   },
 ];
 
@@ -82,17 +82,19 @@ export const ENTRIES: CurriculumEntry[] = [
   // ── Level 1 — Foundations of Fury ──
   { id: "a1", code: "A1", title: "Fours on High E", sub: "Am Climb · Alt Picking", type: "drill", level: 1, content: at("foundations-of-fury", "a1") },
   { id: "a2", code: "A2", title: "Pentatonic Box", sub: "Position 1 · 12 Crossings", type: "drill", level: 1, content: at("foundations-of-fury", "a2") },
+  { id: "a3", code: "A3", title: "String Crossing", sub: "Inside & Outside Picking", type: "drill", level: 1, content: at("foundations-of-fury", "a3") },
   { id: "th1", code: "TH", title: "A Minor Basics", sub: "Key Center · Intervals", type: "theory", level: 1, content: null },
   { id: "b1", code: "B1", title: "3NPS Aeolian Climb", sub: "The Mother Shape", type: "drill", level: 1, content: at("foundations-of-fury", "b1") },
-  { id: "a3", code: "A3", title: "String Crossing", sub: "Inside & Outside Picking", type: "drill", level: 1, content: at("foundations-of-fury", "a3") },
   { id: "b2", code: "B2", title: "Pentatonic Licks", sub: "6-Note Phrases", type: "drill", level: 1, content: null },
-  { id: "b3", code: "B3", title: "Legato Basics", sub: "Hammer-ons & Pull-offs", type: "drill", level: 1, content: null },
+  { id: "b3", code: "B3", title: "Diatonic Trill Ladder", sub: "Hammer/Pull Pairs · Legato", type: "drill", level: 1, content: at("foundations-of-fury", "b3") },
   { id: "th2", code: "TH", title: "Fretboard Map", sub: "Note Names · Octaves", type: "theory", level: 1, content: null },
   { id: "b4", code: "B4", title: "Finger Independence", sub: "The Spider Cage", type: "drill", level: 1, content: null },
   { id: "c1", code: "C1", title: "Palm Muting", sub: "Chug Control · Right Hand", type: "drill", level: 1, content: null },
   { id: "c2", code: "C2", title: "Downpicking", sub: "The Hetfield Engine", type: "drill", level: 1, content: null },
   { id: "c3", code: "C3", title: "Power Chords", sub: "Root-5th · The Wall", type: "drill", level: 1, content: null },
-  { id: "c4", code: "C4", title: "Gallop Riffing", sub: "Eighth–Sixteenth Lock", type: "drill", level: 1, content: at("foundations-of-fury", "c4") },
+  { id: "c4", code: "C4", title: "Gallop Riffing", sub: "The Gallop Progression", type: "drill", level: 1, content: at("foundations-of-fury", "c4") },
+  { id: "c5", code: "D1", title: "Pedal-Point Engine", sub: "Petrucci DNA · Riff", type: "drill", level: 1, content: at("foundations-of-fury", "c5") },
+  { id: "c6", code: "D2", title: "The Singing Cell", sub: "Nilsson DNA · Phrasing", type: "drill", level: 1, content: at("foundations-of-fury", "c6") },
 
   // ── Level 2 — Technical Arsenal ──
   { id: "d1", code: "D1", title: "Alternate Picking", sub: "Strict Down-Up Mastery", type: "drill", level: 2, content: null },
@@ -105,8 +107,13 @@ export const ENTRIES: CurriculumEntry[] = [
   { id: "f1", code: "F1", title: "Sweep Picking", sub: "3-String Arpeggios", type: "drill", level: 2, content: at("technical-arsenal", "f1") },
   { id: "f2", code: "F2", title: "Pinch Harmonics", sub: "The Squeal", type: "drill", level: 2, content: null },
   { id: "f3", code: "F3", title: "Bends & Vibrato", sub: "Pitch Precision", type: "drill", level: 2, content: null },
-  { id: "th4", code: "TH", title: "Arpeggios & Triads", sub: "Shapes Across the Neck", type: "theory", level: 2, content: null },
+  { id: "th4", code: "TH", title: "Arpeggios & Triads", sub: "Shapes Across the Neck", type: "theory", level: 2, content: at("building-blocks", "th4") },
   { id: "f4", code: "F4", title: "Slides & Phrasing", sub: "Legato Connectors", type: "drill", level: 2, content: null },
+  { id: "d4", code: "E2", title: "Six-Shot Bursts", sub: "3NPS Cells as Ammunition", type: "drill", level: 2, content: at("technical-arsenal", "d4") },
+  { id: "e4", code: "A2", title: "Cascading Sixes", sub: "Descending Sixes Sequence", type: "drill", level: 2, content: at("technical-arsenal", "e4") },
+  { id: "e5", code: "A3", title: "New Colors", sub: "Dorian & Harmonic Minor", type: "drill", level: 2, content: at("technical-arsenal", "e5") },
+  { id: "f5", code: "B1", title: "Triad Skip Cells", sub: "String Skipping · i→iv", type: "drill", level: 2, content: at("technical-arsenal", "f5") },
+  { id: "f6", code: "C2", title: "The V Door", sub: "Harmonic-Minor V → i", type: "drill", level: 2, content: at("technical-arsenal", "f6") },
 
   // ── Level 3 — Modal Warfare ──
   { id: "g1", code: "G1", title: "Dorian Runs", sub: "Modal Fingerings", type: "drill", level: 3, content: null },
